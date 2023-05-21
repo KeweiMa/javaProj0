@@ -32,5 +32,5 @@ public class ImportedRecord {
     /**
      * category enum
      */
-    private short category;
+    private String category;
 }

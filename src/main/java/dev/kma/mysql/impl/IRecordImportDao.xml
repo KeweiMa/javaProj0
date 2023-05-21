@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace "dev.kma.mysql.interfaces.IRecordImportDao">
+<mapper namespace="dev.kma.mysql.interfaces.IRecordImportDao">
+    <resultMap id="BaseResultMap" type="dev.kma.dto.ImportedRecord">
+        <id column="ID" jdbcType="VARCHAR" property="id" />
+        <result column="imported_date" jdbcType="TIMESTAMP" property="importedDate" />
+        <result column="actual_date" jdbcType="TIMESTAMP" property="actualDate" />
+        <result column="amount" jdbcType="VARCHAR" property="amount" />
+        <result column="category" jdbcType="VARCHAR" property="category" />
+    </resultMap>
 
-        </mapper>
+    <insert id="insertBatchData">
+        INSERT INTO RESOURCE.RECORDS_LIST (id, imported_date, actual_date, amount, category)
+        VALUES
+        <foreach collection="importedRecord" item="item" index="index" separator=",">
+            (
+            #{item.id,jdbcType=VARCHAR}, #{item.imported_date,jdbcType=TIMESTAMP}, #{item.actual_date,jdbcType=TIMESTAMP},
+            #{item.amount,jdbcType=VARCHAR}, #{item.category,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insert" parameterType="dev.kma.dto.ImportedRecord">
+        INSERT INTO RESOURCE.RECORDS_LIST (id, imported_date, actual_date, amount, category)
+        VALUES (
+            #{id,jdbcType=VARCHAR}, #{imported_date,jdbcType=VARCHAR}, #{actual_date,jdbcType=VARCHAR},
+            #{amount,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT id, imported_date, actual_date, amount, category
+        FROM RESOURCE.RECORDS_LIST
+    </select>
+</mapper>

@@ -1,20 +1,14 @@
 package dev.kma.controller;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import dev.kma.dto.ImportedRecord;
+import com.google.gson.JsonObject;
 import dev.kma.services.ImportTemplateService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import com.google.gson.JsonObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @Slf4j
 @Api(tags = "/resource", value = "excelImport")
@@ -30,7 +24,7 @@ public class importTemplateController {
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "excelImport", notes = "excelImport", httpMethod = "POST")
+    @ApiOperation(value = "importFile", notes = "importFile", httpMethod = "POST")
     @ApiImplicitParams(
             {@ApiImplicitParam(paramType = "query", name = "fileName", value = "uploaded file name", dataType = "String"),
                     @ApiImplicitParam(paramType = "query", name = "note", value = "note", dataType = "String")

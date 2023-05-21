@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 public interface IRecordImportDao {
 
-    int insertBatchData(@Param("importRecord") List<ImportedRecord> importedRecordList);
+    void insertBatchData(@Param("importRecord") List<ImportedRecord> importedRecordList);
+    void insert(ImportedRecord importedRecord);
+
+    List<ImportedRecord> selectAll();
 
 }
